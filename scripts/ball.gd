@@ -33,7 +33,11 @@ func _check_edge_collision() -> void:
 	print(pos, vp_size)
 	if pos.x <= 0.5 or pos.x + 0.5 >= vp_size.x:
 		pass # TODO: score a point for player 1/2
-	elif pos.y <= 0.5 or pos.y + 0.5 >= vp_size.y:
+	elif pos.y <= 0.5:
+		position.y = 0.5
+		_move_direction.y = -_move_direction.y
+	elif pos.y + 0.5 >= vp_size.y:
+		position.y = vp_size.y - 0.5
 		_move_direction.y = -_move_direction.y
 
 func _draw() -> void:
