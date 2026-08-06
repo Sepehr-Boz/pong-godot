@@ -30,12 +30,15 @@ func _handle_input() -> void:
 func _determine_movement() -> void:
 	# only move up/down when the ball is coming towards it
 	if (position.x < _ball.position.x and _ball._move_direction.x < 0) or (position.x > _ball.position.x and _ball._move_direction.x > 0):
-		if _ball.position.y > position.y + 2:
+		# find the distance to the center
+		var dist_to_center: float = abs(_ball.position.y - position.y)
+		if _ball.position.y > position.y:
 			_move = _move_speed
-		elif _ball.position.y < position.y - 2:
+		elif _ball.position.y < position.y:
 			_move = -_move_speed
 		else:
 			_move = 0
+		_move *= clamp(dist_to_center / _min_y, 0, 1)
 	else:
 		_move = 0
 

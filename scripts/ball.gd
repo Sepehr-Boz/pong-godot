@@ -15,7 +15,9 @@ var _last_hit_by_player: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
+	var rand_x: float = _rng.randf_range(0.5, 1) * -1 if _rng.randi_range(0, 1) == 0 else 1
+	var rand_y: float = _rng.randf_range(0.5, 1) * -1 if _rng.randi_range(0, 1) == 0 else 1
+	_move_direction = Vector2(rand_x, rand_y)
 	_current_move_speed = _initial_move_speed
 	area_entered.connect(_on_area_entered)
 
@@ -28,6 +30,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Paddle"):
 		_move_direction.x = -_move_direction.x + _rng.randf_range(-_max_bounce_deviation, _max_bounce_deviation)
 		_current_move_speed += _move_speed_increment
+		_game_ui.ball_speed_increased_to(_current_move_speed)
 		if area.position.x < position.x:
 			_last_hit_by_player = 1
 		else:
@@ -43,6 +46,7 @@ func _check_edge_collision() -> void:
 		position = vp_size / 2
 		_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
 		_current_move_speed = _initial_move_speed
+		_game_ui.ball_speed_increased_to(_current_move_speed)
 	elif pos.y <= 0.5:
 		position.y = 0.5
 		_move_direction.y = -_move_direction.y
