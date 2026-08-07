@@ -40,7 +40,6 @@ func _check_edge_collision() -> void:
 	var vp: Viewport = get_viewport()
 	var vp_size: Vector2 = vp.get_visible_rect().size / vp.get_camera_2d().zoom
 	var pos: Vector2 = position
-	print(pos, vp_size)
 	if pos.x <= 0.5 or pos.x + 0.5 >= vp_size.x:
 		_game_ui.player_scored(_last_hit_by_player)
 		position = vp_size / 2
