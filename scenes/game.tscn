@@ -1,55 +1,9 @@
 [gd_scene format=3 uid="uid://ch0pjwbc18waa"]
 
-[ext_resource type="Script" uid="uid://cwx4q41h8dfv4" path="res://scripts/paddle.gd" id="1_uwrxv"]
-[ext_resource type="Script" uid="uid://bmy1ta7ccyleu" path="res://scripts/ball.gd" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://x241ri6wojaa" path="res://scripts/game_ui.gd" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://ywwqr80e54oo" path="res://scripts/pause_menu.gd" id="4_lbhrr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wlwq"]
-size = Vector2(2, 8)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0wlwq"]
-radius = 1.0
-
 [node name="Node2D" type="Node2D" unique_id=1800122009]
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=61428098]
-anchor_mode = 0
-zoom = Vector2(25, 25)
-
-[node name="Paddle" type="Area2D" parent="." unique_id=508968885 groups=["Paddle"]]
-position = Vector2(4, 12)
-script = ExtResource("1_uwrxv")
-_move_speed = 10.0
-_up_key = 87
-_down_key = 83
-
-[node name="Polygon2D" type="Polygon2D" parent="Paddle" unique_id=1762825789]
-polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle" unique_id=2084211530]
-shape = SubResource("RectangleShape2D_0wlwq")
-
-[node name="Paddle2" type="Area2D" parent="." unique_id=1077328263 groups=["Paddle"]]
-position = Vector2(42.04, 12)
-script = ExtResource("1_uwrxv")
-_move_speed = 10.0
-_up_key = 4194320
-_down_key = 4194322
-
-[node name="Polygon2D" type="Polygon2D" parent="Paddle2" unique_id=97463027]
-polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle2" unique_id=666421213]
-shape = SubResource("RectangleShape2D_0wlwq")
-
-[node name="Ball" type="Area2D" parent="." unique_id=151123183]
-position = Vector2(24, 12)
-script = ExtResource("2_yqjtg")
-_initial_move_speed = 7.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=766917586]
-shape = SubResource("CircleShape2D_0wlwq")
 
 [node name="Game UI" type="CanvasLayer" parent="." unique_id=1996642113]
 visible = false
@@ -68,15 +22,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[font_size=32]Player 1 : 0[/font_size]"
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Ball Speed" type="RichTextLabel" parent="Game UI/HSplitContainer" unique_id=1636381106]
-layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "[font_size=22]Speed : 0[/font_size]"
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -125,13 +70,11 @@ text = "Reset"
 layout_mode = 2
 alignment = 1
 selected = 0
-item_count = 3
+item_count = 2
 popup/item_0/text = "Normal"
 popup/item_0/id = 0
-popup/item_1/text = "AI Playground"
-popup/item_1/id = 1
-popup/item_2/text = "4-Player"
-popup/item_2/id = 2
+popup/item_1/text = "4-Player"
+popup/item_1/id = 2
 
 [node name="Quit Button" type="Button" parent="Pause Menu/VBoxContainer" unique_id=458991648]
 layout_mode = 2

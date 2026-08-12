@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://ke1yode6xh5k"]
+
+[ext_resource type="Script" uid="uid://cwx4q41h8dfv4" path="res://scripts/paddle.gd" id="1_s7eja"]
+[ext_resource type="Script" uid="uid://bmy1ta7ccyleu" path="res://scripts/ball.gd" id="2_f74mv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wlwq"]
+size = Vector2(2, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wlwq"]
+radius = 1.0
+
+[node name="Two Player" type="Node2D" unique_id=944271010]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=459011737]
+anchor_mode = 0
+zoom = Vector2(25, 25)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=26822118]
+offset_right = 46.0
+offset_bottom = 26.0
+color = Color(0.3791798, 0.3791798, 0.37917978, 1)
+
+[node name="Paddle" type="Area2D" parent="." unique_id=2093987916 groups=["Paddle"]]
+position = Vector2(4, 12)
+script = ExtResource("1_s7eja")
+_move_speed = 10.0
+_up_key = 87
+_down_key = 83
+
+[node name="Polygon2D" type="Polygon2D" parent="Paddle" unique_id=1840034878]
+polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle" unique_id=425859413]
+shape = SubResource("RectangleShape2D_0wlwq")
+
+[node name="Paddle2" type="Area2D" parent="." unique_id=1276797974 groups=["Paddle"]]
+position = Vector2(42.04, 12)
+script = ExtResource("1_s7eja")
+_move_speed = 10.0
+_up_key = 4194320
+_down_key = 4194322
+
+[node name="Polygon2D" type="Polygon2D" parent="Paddle2" unique_id=762680683]
+polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle2" unique_id=1345347042]
+shape = SubResource("RectangleShape2D_0wlwq")
+
+[node name="Ball" type="Area2D" parent="." unique_id=394542433]
+position = Vector2(24, 12)
+script = ExtResource("2_f74mv")
+_initial_move_speed = 7.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=1532636481]
+shape = SubResource("CircleShape2D_0wlwq")
