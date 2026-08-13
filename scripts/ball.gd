@@ -1,6 +1,9 @@
 class_name Ball
 extends Area2D
 
+signal on_paddle_hit(paddle_num: int)
+signal on_score(winner_num: int)
+
 const BALL_RADIUS: float = 1.0
 
 @export var _initial_move_speed: float = 1.0
@@ -33,13 +36,14 @@ func _on_area_entered(area: Area2D) -> void:
 			_last_hit_by_player = 1
 		else:
 			_last_hit_by_player = 2
+		on_paddle_hit.emit(_last_hit_by_player)
 
 func _check_edge_collision() -> void:
 	var vp: Viewport = get_viewport()
 	var vp_size: Vector2 = vp.get_visible_rect().size / vp.get_camera_2d().zoom
 	var pos: Vector2 = position
 	if pos.x <= 0.5 or pos.x + 0.5 >= vp_size.x:
-		GameUI.player_scored(_last_hit_by_player)
+		on_score.emit(_last_hit_by_player)
 		position = vp_size / 2
 		_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
 		_current_move_speed = _initial_move_speed

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dhabs3fxf4gxp"]
+
+[ext_resource type="Script" uid="uid://bmy1ta7ccyleu" path="res://scripts/ball.gd" id="1_7s4qf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wlwq"]
+radius = 1.0
+
+[node name="Ball" type="Area2D" unique_id=1877987044]
+script = ExtResource("1_7s4qf")
+_initial_move_speed = 7.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=890013244]
+shape = SubResource("CircleShape2D_0wlwq")

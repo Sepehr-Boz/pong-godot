@@ -1,16 +1,12 @@
 [gd_scene format=3 uid="uid://btf51hq0no68k"]
 
 [ext_resource type="Script" uid="uid://cwx4q41h8dfv4" path="res://scripts/paddle.gd" id="1_wbu80"]
-[ext_resource type="Script" uid="uid://bmy1ta7ccyleu" path="res://scripts/ball.gd" id="2_4xyjt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wlwq"]
 size = Vector2(2, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e5wnf"]
 size = Vector2(8, 2)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0wlwq"]
-radius = 1.0
 
 [node name="Four Player" type="Node2D" unique_id=1670922904]
 
@@ -79,11 +75,3 @@ polygon = PackedVector2Array(-4, -1, -4, 1, 4, 1, 4, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle4" unique_id=901436890]
 shape = SubResource("RectangleShape2D_e5wnf")
-
-[node name="Ball" type="Area2D" parent="." unique_id=1476471708]
-position = Vector2(14, 13)
-script = ExtResource("2_4xyjt")
-_initial_move_speed = 7.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=386026173]
-shape = SubResource("CircleShape2D_0wlwq")

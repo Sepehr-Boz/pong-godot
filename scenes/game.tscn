@@ -6,7 +6,6 @@
 [node name="Node2D" type="Node2D" unique_id=1800122009]
 
 [node name="Game UI" type="CanvasLayer" parent="." unique_id=1996642113]
-visible = false
 script = ExtResource("3_lnu2h")
 
 [node name="HSplitContainer" type="HBoxContainer" parent="Game UI" unique_id=1567940873]
@@ -16,24 +15,6 @@ offset_bottom = 40.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 alignment = 1
-
-[node name="Player 1 Score" type="RichTextLabel" parent="Game UI/HSplitContainer" unique_id=500923896]
-layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "[font_size=32]Player 1 : 0[/font_size]"
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Player 2 Score" type="RichTextLabel" parent="Game UI/HSplitContainer" unique_id=2058754796]
-layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "[font_size=32]Player 2 : 0[/font_size]"
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 2
 
 [node name="Pause Menu" type="CanvasLayer" parent="." unique_id=1536511482]
 script = ExtResource("4_lbhrr")
@@ -71,10 +52,10 @@ layout_mode = 2
 alignment = 1
 selected = 0
 item_count = 2
-popup/item_0/text = "Normal"
+popup/item_0/text = "2-Player"
 popup/item_0/id = 0
 popup/item_1/text = "4-Player"
-popup/item_1/id = 2
+popup/item_1/id = 1
 
 [node name="Quit Button" type="Button" parent="Pause Menu/VBoxContainer" unique_id=458991648]
 layout_mode = 2

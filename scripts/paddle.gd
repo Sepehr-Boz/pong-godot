@@ -12,7 +12,6 @@ enum ControlMode { AI, PLAYER }
 
 var _move: float
 var _is_moving_up: bool
-@onready var _ball: Ball = $"../Ball"
 @onready var _shape: Shape2D = $"CollisionShape2D".shape
 @onready var _min_y: float = _shape.size.y / 2
 @onready var _max_y: float = (get_viewport().get_visible_rect().size.y / get_viewport().get_camera_2d().zoom.y) - (_shape.size.y / 2)
@@ -37,12 +36,12 @@ func _handle_input() -> void:
 # AI
 func _determine_movement() -> void:
 	# only move up/down when the ball is coming towards it
-	if (position.x < _ball.position.x and _ball._move_direction.x < 0) or (position.x > _ball.position.x and _ball._move_direction.x > 0):
+	if (position.x < GameManager.current_ball.position.x and GameManager.current_ball._move_direction.x < 0) or (position.x > GameManager.current_ball.position.x and GameManager.current_ball._move_direction.x > 0):
 		# find the distance to the center
-		var dist_to_center: float = abs(_ball.position.y - position.y)
-		if _ball.position.y > position.y:
+		var dist_to_center: float = abs(GameManager.current_ball.position.y - position.y)
+		if GameManager.current_ball.position.y > position.y:
 			_is_moving_up = false
-		elif _ball.position.y < position.y:
+		elif GameManager.current_ball.position.y < position.y:
 			_is_moving_up = true
 		else:
 			_move = 0
