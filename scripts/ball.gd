@@ -17,18 +17,22 @@ var _last_hit_by_player: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var rand_x: float = _rng.randf_range(0.5, 1) * -1 if _rng.randi_range(0, 1) == 0 else 1
-	var rand_y: float = _rng.randf_range(0.5, 1) * -1 if _rng.randi_range(0, 1) == 0 else 1
+	var rand_x: float = _rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1)
+	var rand_y: float = _rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1)
 	_move_direction = Vector2(rand_x, rand_y)
+	if rand_x < 0:
+		_last_hit_by_player = 2
+	else:
+		_last_hit_by_player = 1
 	_current_move_speed = _initial_move_speed
-	area_entered.connect(_on_area_entered)
+	#area_entered.connect(_on_area_entered)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	_check_edge_collision()
 	position += _move_direction * _current_move_speed * delta
 
-func _on_area_entered(area: Area2D) -> void:
+func _area_entered(area: Area2D) -> void:
 	if area.is_in_group("Paddle"):
 		_move_direction.x = -_move_direction.x + _rng.randf_range(-_max_bounce_deviation, _max_bounce_deviation)
 		_current_move_speed += _move_speed_increment
