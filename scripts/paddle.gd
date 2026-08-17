@@ -13,8 +13,8 @@ enum ControlMode { AI, PLAYER }
 var _move: float
 var _is_moving_up: bool
 @onready var _shape: Shape2D = $"CollisionShape2D".shape
-@onready var _min_y: float = _shape.size.y / 2
-@onready var _max_y: float = (get_viewport().get_visible_rect().size.y / get_viewport().get_camera_2d().zoom.y) - (_shape.size.y / 2)
+@onready var _max_y: float = (get_canvas_transform().affine_inverse() * get_viewport_rect()).end.y - (_shape.size.y / 2)
+@onready var _min_y: float = -_max_y
 
 func _ready() -> void:
 	_is_moving_up = false
@@ -35,17 +35,24 @@ func _handle_input() -> void:
 
 # AI
 func _determine_movement() -> void:
-	# only move up/down when the ball is coming towards it
-	if (position.x < GameManager.current_ball.position.x and GameManager.current_ball._move_direction.x < 0) or (position.x > GameManager.current_ball.position.x and GameManager.current_ball._move_direction.x > 0):
-		# find the distance to the center
-		var dist_to_center: float = abs(GameManager.current_ball.position.y - position.y)
-		if GameManager.current_ball.position.y > position.y:
-			_is_moving_up = false
-		elif GameManager.current_ball.position.y < position.y:
+	# check if moving towards the paddle based on the balls movement direction and the wall
+	# the paddle is on
+	var ball_pos: Vector2 = GameManager.current_ball.position
+	var ball_move_dir: Vector2 = GameManager.current_ball._move_direction.normalized()
+	var intersect = Geometry2D.segment_intersects_segment(ball_pos, ball_pos + ball_move_dir * 100, position + _up_direction * 100, position + _down_direction * 100)
+	if intersect != null:
+		# find where the ball will intersect with the 'line' that the paddle moves along and move towards it
+		# if close enough to the intersect then dont move, otherwise find out if need to move 'up'
+		# or 'down' then move that direction
+		var dist_to_intersect: float = position.distance_to(intersect)
+		if dist_to_intersect <= 4:
+			_move = 0
+		elif position.distance_to(intersect - _up_direction) < position.distance_to(intersect - _down_direction):
+			_move = _move_speed
 			_is_moving_up = true
 		else:
-			_move = 0
-		_move = _move_speed * clamp(dist_to_center / _min_y, 0, 1)
+			_move = _move_speed
+			_is_moving_up = false
 	else:
 		_move = 0
 

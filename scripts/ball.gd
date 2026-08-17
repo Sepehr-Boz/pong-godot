@@ -25,14 +25,14 @@ func _ready() -> void:
 	else:
 		_last_hit_by_player = 1
 	_current_move_speed = _initial_move_speed
-	#area_entered.connect(_on_area_entered)
+	area_entered.connect(_on_area_entered)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	_check_edge_collision()
 	position += _move_direction * _current_move_speed * delta
 
-func _area_entered(area: Area2D) -> void:
+func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Paddle"):
 		_move_direction.x = -_move_direction.x + _rng.randf_range(-_max_bounce_deviation, _max_bounce_deviation)
 		_current_move_speed += _move_speed_increment
@@ -43,19 +43,19 @@ func _area_entered(area: Area2D) -> void:
 		on_paddle_hit.emit(_last_hit_by_player)
 
 func _check_edge_collision() -> void:
-	var vp: Viewport = get_viewport()
-	var vp_size: Vector2 = vp.get_visible_rect().size / vp.get_camera_2d().zoom
+	# get the rect2 viewport of the CAMERA not the default node viewport
+	var vp: Rect2 = get_canvas_transform().affine_inverse() * get_viewport_rect()
 	var pos: Vector2 = position
-	if pos.x <= 0.5 or pos.x + 0.5 >= vp_size.x:
+	if pos.x <= vp.position.x or pos.x >= vp.end.x:
 		on_score.emit(_last_hit_by_player)
-		position = vp_size / 2
+		position = Vector2.ZERO
 		_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
 		_current_move_speed = _initial_move_speed
-	elif pos.y <= 0.5:
-		position.y = 0.5
+	elif pos.y - 0.5 <= vp.position.y:
+		position.y = vp.position.y + 0.5
 		_move_direction.y = -_move_direction.y
-	elif pos.y + 0.5 >= vp_size.y:
-		position.y = vp_size.y - 0.5
+	elif pos.y + 0.5 >= vp.end.y:
+		position.y = vp.end.y - 0.5
 		_move_direction.y = -_move_direction.y
 
 func _draw() -> void:

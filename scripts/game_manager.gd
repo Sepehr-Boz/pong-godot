@@ -30,9 +30,7 @@ func set_game_mode(mode: GameMode) -> void:
 	add_child(_current_game_scene)
 	current_ball = _ball_scene.instantiate()
 	add_child(current_ball)
-	var cam: Camera2D = get_viewport().get_camera_2d()
-	var vp: Rect2 = get_viewport().get_visible_rect()
-	current_ball.position = (vp.position + vp.size / cam.zoom / 2) + cam.offset
+	current_ball.position = Vector2.ZERO
 	on_ball_spawned.emit(current_ball)
 	on_mode_set.emit(mode)
 	
@@ -46,8 +44,6 @@ func reset_game() -> void:
 	add_child(_current_game_scene)
 	current_ball = _ball_scene.instantiate()
 	add_child(current_ball)
-	var cam: Camera2D = get_viewport().get_camera_2d()
-	var vp: Rect2 = get_viewport().get_visible_rect()
-	current_ball.position = (vp.position + vp.size / cam.zoom / 2) + cam.offset
+	current_ball.position = Vector2.ZERO
 	on_ball_spawned.emit(current_ball)
 	on_mode_set.emit(_game_mode)
