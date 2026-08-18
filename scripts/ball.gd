@@ -17,6 +17,7 @@ var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _move_direction: Vector2
 var _current_move_speed: float
 var _last_hit_by_player: int
+@onready var _spawn_particles: CPUParticles2D = $"Spawn Particles"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,6 +28,7 @@ func _ready() -> void:
 	_current_move_speed = _initial_move_speed
 	area_entered.connect(_on_area_entered)
 	modulate = _base_color
+	_spawn_particles.emitting = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -69,6 +71,7 @@ func _check_edge_collision() -> void:
 			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
 			_current_move_speed = _initial_move_speed
 			_last_hit_by_player = 0
+			_spawn_particles.emitting = true
 		elif position.y - 0.5 <= -GameManager.extents.y:
 			position.y = -GameManager.extents.y + 0.5
 			_move_direction.y = -_move_direction.y
@@ -82,3 +85,4 @@ func _check_edge_collision() -> void:
 			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
 			_current_move_speed = _initial_move_speed
 			_last_hit_by_player = 0
+			_spawn_particles.emitting = true

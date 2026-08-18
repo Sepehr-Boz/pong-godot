@@ -6,6 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0wlwq"]
 radius = 1.0
 
+[sub_resource type="Gradient" id="Gradient_hiqac"]
+offsets = PackedFloat32Array(0, 0.49590164, 1)
+colors = PackedColorArray(0.7607843, 0, 0, 1, 0.47843137, 0.8784314, 0.49411765, 1, 0.4862745, 0.5137255, 1, 1)
+
 [node name="Ball" type="Area2D" unique_id=1877987044]
 script = ExtResource("1_7s4qf")
 _initial_move_speed = 7.5
@@ -21,3 +25,24 @@ script = ExtResource("2_cxlvu")
 radius = 1.0
 border_thickness = null
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
+
+[node name="Spawn Particles" type="CPUParticles2D" parent="." unique_id=458682307]
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+emission_shape = 6
+emission_ring_inner_radius = 0.5
+emission_ring_radius = 1.0
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 2.0
+radial_accel_min = 7.5
+radial_accel_max = 7.5
+scale_amount_min = 0.2
+scale_amount_max = 0.75
+color_ramp = SubResource("Gradient_hiqac")
