@@ -12,9 +12,6 @@ enum ControlMode { AI, PLAYER }
 
 var _move: float
 var _is_moving_up: bool
-@onready var _shape: Shape2D = $"CollisionShape2D".shape
-@onready var _max_y: float = (get_canvas_transform().affine_inverse() * get_viewport_rect()).end.y - (_shape.size.y / 2)
-@onready var _min_y: float = -_max_y
 
 func _ready() -> void:
 	_is_moving_up = false
@@ -66,4 +63,5 @@ func _process(delta: float) -> void:
 		position += _up_direction * _move * delta
 	else:
 		position += _down_direction * _move * delta
-	position.y = clampf(position.y, _min_y, _max_y)
+	position.x = clampf(position.x, -GameManager.extents.x, GameManager.extents.x)
+	position.y = clampf(position.y, -GameManager.extents.y, GameManager.extents.y)

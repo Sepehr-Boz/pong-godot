@@ -12,13 +12,16 @@ var _ball_scene: PackedScene = preload("res://scenes/ball.tscn")
 
 var _current_game_scene: Node
 static var current_ball: Ball
+static var extents: Vector2
 
 func _ready() -> void:
 	# to allow other listeners (game ui) to connect to game manager, then wait a bit
 	# before starting the game
 	await get_tree().create_timer(0.1).timeout
 	reset_game()
-
+	var rect: Rect2 = (get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * get_viewport().get_visible_rect())
+	extents = Vector2(rect.end.x, rect.end.y - 4)
+	
 func set_game_mode(mode: GameMode) -> void:
 	# dont do anything if setting to the current mode
 	if mode == _game_mode:
@@ -33,7 +36,13 @@ func set_game_mode(mode: GameMode) -> void:
 	current_ball.position = Vector2.ZERO
 	on_ball_spawned.emit(current_ball)
 	on_mode_set.emit(mode)
-	
+	# only update the extents after the NEW scene has been loaded in
+	if _game_mode == GameMode.TWO_PLAYER:
+		var rect: Rect2 = (get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * get_viewport().get_visible_rect())
+		extents = Vector2(rect.end.x, rect.end.y - 4)
+	else:
+		var rect: Rect2 = (get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * get_viewport().get_visible_rect())
+		extents = Vector2(rect.end.y - 4, rect.end.y - 4)
 
 func reset_game() -> void:
 	if _current_game_scene != null:

@@ -28,7 +28,7 @@ grow_vertical = 2
 color = Color(0.3791798, 0.3791798, 0.37917978, 1)
 
 [node name="Paddle" type="Area2D" parent="." unique_id=441434758 groups=["Paddle"]]
-position = Vector2(-18, 0)
+position = Vector2(-16, 0)
 script = ExtResource("1_wbu80")
 _move_speed = 10.0
 _up_key = 87
@@ -41,7 +41,7 @@ polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
 shape = SubResource("RectangleShape2D_0wlwq")
 
 [node name="Paddle2" type="Area2D" parent="." unique_id=1698072976 groups=["Paddle"]]
-position = Vector2(18, 0)
+position = Vector2(16, 0)
 script = ExtResource("1_wbu80")
 _move_speed = 10.0
 _up_key = 4194322
@@ -56,7 +56,7 @@ polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
 shape = SubResource("RectangleShape2D_0wlwq")
 
 [node name="Paddle3" type="Area2D" parent="." unique_id=105193770 groups=["Paddle"]]
-position = Vector2(0, 18)
+position = Vector2(0, 16)
 script = ExtResource("1_wbu80")
 _move_speed = 10.0
 _up_key = 4194319
@@ -71,7 +71,7 @@ polygon = PackedVector2Array(-4, -1, -4, 1, 4, 1, 4, -1)
 shape = SubResource("RectangleShape2D_e5wnf")
 
 [node name="Paddle4" type="Area2D" parent="." unique_id=139628507 groups=["Paddle"]]
-position = Vector2(0, -18)
+position = Vector2(0, -16)
 script = ExtResource("1_wbu80")
 _move_speed = 10.0
 _up_key = 68
