@@ -36,6 +36,10 @@ func _reset_ui(mode: GameManager.GameMode) -> void:
 	_update_labels()
 
 func _player_scored(player_num: int) -> void:
+	# player num will only be 0 at the first spawn so if that is the case then dont count that score
+	# since it is slightly unfair
+	if player_num == 0:
+		return
 	_player_scores[player_num] += 1
 	_update_labels()
 

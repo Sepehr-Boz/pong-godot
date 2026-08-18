@@ -20,10 +20,7 @@ func _ready() -> void:
 	_move_direction = Vector2(
 		_rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1),
 		_rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1)).normalized()
-	if _move_direction.x < 0:
-		_last_hit_by_player = 2
-	else:
-		_last_hit_by_player = 1
+	_last_hit_by_player = 0
 	_current_move_speed = _initial_move_speed
 	area_entered.connect(_on_area_entered)
 
@@ -55,6 +52,7 @@ func _check_edge_collision() -> void:
 			position = Vector2.ZERO
 			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
 			_current_move_speed = _initial_move_speed
+			_last_hit_by_player = 0
 		elif position.y - 0.5 <= -GameManager.extents.y:
 			position.y = -GameManager.extents.y + 0.5
 			_move_direction.y = -_move_direction.y
@@ -67,6 +65,7 @@ func _check_edge_collision() -> void:
 			position = Vector2.ZERO
 			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
 			_current_move_speed = _initial_move_speed
+			_last_hit_by_player = 0
 
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, BALL_RADIUS, Color("0000ff"))
