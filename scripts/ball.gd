@@ -4,8 +4,6 @@ extends Area2D
 signal on_paddle_hit(paddle_num: int)
 signal on_score(winner_num: int)
 
-const BALL_RADIUS: float = 1.0
-
 @export var _initial_move_speed: float = 1.0
 @export var _move_speed_increment: float = 0.1
 @export var _max_bounce_deviation: float = 0.005
@@ -66,6 +64,3 @@ func _check_edge_collision() -> void:
 			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
 			_current_move_speed = _initial_move_speed
 			_last_hit_by_player = 0
-
-func _draw() -> void:
-	draw_circle(Vector2.ZERO, BALL_RADIUS, Color("0000ff"))

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ke1yode6xh5k"]
 
+[ext_resource type="Script" uid="uid://c7taf3d5ww70r" path="res://scripts/circle2d.gd" id="1_f74mv"]
 [ext_resource type="Script" uid="uid://cwx4q41h8dfv4" path="res://scripts/paddle.gd" id="1_s7eja"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wlwq"]
@@ -24,8 +25,52 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.3791798, 0.3791798, 0.37917978, 1)
 
+[node name="Line" type="Node2D" parent="." unique_id=430432250]
+position = Vector2(-19, 0)
+
+[node name="Line2D" type="Line2D" parent="Line" unique_id=1089418826]
+points = PackedVector2Array(0, -13, 0, 13)
+width = 0.25
+default_color = Color(1, 1, 1, 0.5019608)
+
+[node name="Circle2D" type="Node2D" parent="Line" unique_id=141784719]
+position = Vector2(0, -13)
+script = ExtResource("1_f74mv")
+_radius = 0.25
+_fill_color = Color(1, 1, 1, 0.5019608)
+metadata/_custom_type_script = "uid://c7taf3d5ww70r"
+
+[node name="Circle2D2" type="Node2D" parent="Line" unique_id=469359566]
+position = Vector2(0, 13)
+script = ExtResource("1_f74mv")
+_radius = 0.25
+_fill_color = Color(1, 1, 1, 0.5019608)
+metadata/_custom_type_script = "uid://c7taf3d5ww70r"
+
+[node name="Line2" type="Node2D" parent="." unique_id=100597186]
+position = Vector2(19, 0)
+
+[node name="Line2D" type="Line2D" parent="Line2" unique_id=470049116]
+points = PackedVector2Array(0, -13, 0, 13)
+width = 0.25
+default_color = Color(1, 1, 1, 0.5019608)
+
+[node name="Circle2D" type="Node2D" parent="Line2" unique_id=2061675951]
+position = Vector2(0, -13)
+script = ExtResource("1_f74mv")
+_radius = 0.25
+_fill_color = Color(1, 1, 1, 0.5019608)
+metadata/_custom_type_script = "uid://c7taf3d5ww70r"
+
+[node name="Circle2D2" type="Node2D" parent="Line2" unique_id=1254058140]
+position = Vector2(0, 13)
+script = ExtResource("1_f74mv")
+_radius = 0.25
+_fill_color = Color(1, 1, 1, 0.5019608)
+metadata/_custom_type_script = "uid://c7taf3d5ww70r"
+
 [node name="Paddle" type="Area2D" parent="." unique_id=2093987916 groups=["Paddle"]]
-position = Vector2(-20, 0)
+position = Vector2(-19, 0)
 script = ExtResource("1_s7eja")
 _move_speed = 10.0
 _up_key = 87
@@ -40,7 +85,7 @@ polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
 shape = SubResource("RectangleShape2D_0wlwq")
 
 [node name="Paddle2" type="Area2D" parent="." unique_id=1276797974 groups=["Paddle"]]
-position = Vector2(20, 0)
+position = Vector2(19, 0)
 script = ExtResource("1_s7eja")
 _move_speed = 10.0
 _up_key = 4194320

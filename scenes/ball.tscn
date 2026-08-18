@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dhabs3fxf4gxp"]
 
 [ext_resource type="Script" uid="uid://bmy1ta7ccyleu" path="res://scripts/ball.gd" id="1_7s4qf"]
+[ext_resource type="Script" uid="uid://c7taf3d5ww70r" path="res://scripts/circle2d.gd" id="2_cxlvu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0wlwq"]
 radius = 1.0
@@ -11,3 +12,9 @@ _initial_move_speed = 7.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=890013244]
 shape = SubResource("CircleShape2D_0wlwq")
+
+[node name="Circle2D" type="Node2D" parent="." unique_id=2056300707]
+script = ExtResource("2_cxlvu")
+_radius = 1.0
+_fill_color = Color(0.32202128, 0.5289731, 1, 1)
+metadata/_custom_type_script = "uid://c7taf3d5ww70r"
