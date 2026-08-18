@@ -7,6 +7,11 @@ signal on_score(winner_num: int)
 @export var _initial_move_speed: float = 1.0
 @export var _move_speed_increment: float = 0.1
 @export var _max_bounce_deviation: float = 0.005
+@export_group("Hit Animation Props")
+@export var _base_color: Color = Color.BLACK
+@export var _bounce_color: Color = Color.WHITE
+@export var _hit_destination_scale: Vector2 = Vector2(1.1, 1.1)
+@export var _hit_animation_duration: float = 0.1
 
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _move_direction: Vector2
@@ -21,6 +26,7 @@ func _ready() -> void:
 	_last_hit_by_player = 0
 	_current_move_speed = _initial_move_speed
 	area_entered.connect(_on_area_entered)
+	modulate = _base_color
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -39,6 +45,18 @@ func _on_area_entered(area: Area2D) -> void:
 		_current_move_speed += _move_speed_increment
 		_last_hit_by_player = area.player_num
 		on_paddle_hit.emit(_last_hit_by_player)
+		# play a quick animation on hit where it scales up and back down
+		var color_tween: Tween = get_tree().create_tween()
+		color_tween.tween_property(self, "modulate", _bounce_color, _hit_animation_duration / 2)
+		color_tween.tween_property(self, "modulate", _base_color, _hit_animation_duration / 2)
+		var size_tween: Tween = get_tree().create_tween()
+		size_tween.tween_property(self, "scale", _hit_destination_scale, _hit_animation_duration / 2)
+		size_tween.tween_property(self, "scale", Vector2.ONE, _hit_animation_duration / 2)
+		var main_tween: Tween = get_tree().create_tween()
+		main_tween.parallel().tween_subtween(color_tween)
+		main_tween.parallel().tween_subtween(size_tween)
+		main_tween.play()
+		
 
 func _check_edge_collision() -> void:
 	# check if out of bounds based on the extents defined in the game manager singleton

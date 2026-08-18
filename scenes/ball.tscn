@@ -9,12 +9,15 @@ radius = 1.0
 [node name="Ball" type="Area2D" unique_id=1877987044]
 script = ExtResource("1_7s4qf")
 _initial_move_speed = 7.5
+_base_color = Color(0.18778887, 0.41822243, 1, 1)
+_bounce_color = Color(0.00306635, 0, 0.28841886, 1)
+_hit_destination_scale = Vector2(1.3, 1.3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=890013244]
 shape = SubResource("CircleShape2D_0wlwq")
 
 [node name="Circle2D" type="Node2D" parent="." unique_id=2056300707]
 script = ExtResource("2_cxlvu")
-_radius = 1.0
-_fill_color = Color(0.32202128, 0.5289731, 1, 1)
+radius = 1.0
+border_thickness = null
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
