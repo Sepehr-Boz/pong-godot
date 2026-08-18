@@ -17,10 +17,10 @@ var _last_hit_by_player: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var rand_x: float = _rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1)
-	var rand_y: float = _rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1)
-	_move_direction = Vector2(rand_x, rand_y)
-	if rand_x < 0:
+	_move_direction = Vector2(
+		_rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1),
+		_rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1)).normalized()
+	if _move_direction.x < 0:
 		_last_hit_by_player = 2
 	else:
 		_last_hit_by_player = 1
@@ -34,29 +34,39 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Paddle"):
-		_move_direction.x = -_move_direction.x + _rng.randf_range(-_max_bounce_deviation, _max_bounce_deviation)
+		area = area as Paddle
+		_move_direction = (
+			_move_direction.bounce(area.normal_vector)
+			+ Vector2(
+				_rng.randf_range(-_max_bounce_deviation, _max_bounce_deviation),
+				_rng.randf_range(-_max_bounce_deviation, _max_bounce_deviation))
+			).normalized()
 		_current_move_speed += _move_speed_increment
-		if area.position.x < position.x:
-			_last_hit_by_player = 1
-		else:
-			_last_hit_by_player = 2
+		_last_hit_by_player = area.player_num
 		on_paddle_hit.emit(_last_hit_by_player)
 
 func _check_edge_collision() -> void:
-	# get the rect2 viewport of the CAMERA not the default node viewport
-	var vp: Rect2 = get_canvas_transform().affine_inverse() * get_viewport_rect()
-	var pos: Vector2 = position
-	if pos.x <= vp.position.x or pos.x >= vp.end.x:
-		on_score.emit(_last_hit_by_player)
-		position = Vector2.ZERO
-		_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
-		_current_move_speed = _initial_move_speed
-	elif pos.y - 0.5 <= vp.position.y:
-		position.y = vp.position.y + 0.5
-		_move_direction.y = -_move_direction.y
-	elif pos.y + 0.5 >= vp.end.y:
-		position.y = vp.end.y - 0.5
-		_move_direction.y = -_move_direction.y
+	# check if out of bounds based on the extents defined in the game manager singleton
+	# if in 2-player mode then only check for left-right out of bounds for scoring
+	# if in 4-player mode then check all sides for out of bounds and never bounce off walls
+	if GameManager._game_mode == GameManager.GameMode.TWO_PLAYER:
+		if position.x <= -GameManager.extents.x or position.x >= GameManager.extents.x:
+			on_score.emit(_last_hit_by_player)
+			position = Vector2.ZERO
+			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
+			_current_move_speed = _initial_move_speed
+		elif position.y - 0.5 <= -GameManager.extents.y:
+			position.y = -GameManager.extents.y + 0.5
+			_move_direction.y = -_move_direction.y
+		elif position.y + 0.5 >= GameManager.extents.y:
+			position.y = GameManager.extents.y - 0.5
+			_move_direction.y = -_move_direction.y
+	else:
+		if not Rect2(-GameManager.extents, GameManager.extents * 2).has_point(position):
+			on_score.emit(_last_hit_by_player)
+			position = Vector2.ZERO
+			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
+			_current_move_speed = _initial_move_speed
 
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, BALL_RADIUS, Color("0000ff"))

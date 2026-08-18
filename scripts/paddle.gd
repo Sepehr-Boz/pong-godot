@@ -9,6 +9,8 @@ enum ControlMode { AI, PLAYER }
 @export var _up_direction: Vector2 = Vector2.UP
 @export var _down_direction: Vector2 = Vector2.DOWN
 @export var _control_mode: ControlMode
+@export var normal_vector: Vector2
+@export var player_num: int
 
 var _move: float
 var _is_moving_up: bool
@@ -63,5 +65,5 @@ func _process(delta: float) -> void:
 		position += _up_direction * _move * delta
 	else:
 		position += _down_direction * _move * delta
-	position.x = clampf(position.x, -GameManager.extents.x, GameManager.extents.x)
-	position.y = clampf(position.y, -GameManager.extents.y, GameManager.extents.y)
+	position.x = clampf(position.x, -GameManager.extents.x + 4, GameManager.extents.x - 4)
+	position.y = clampf(position.y, -GameManager.extents.y + 4, GameManager.extents.y - 4)

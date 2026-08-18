@@ -33,6 +33,8 @@ script = ExtResource("1_wbu80")
 _move_speed = 10.0
 _up_key = 87
 _down_key = 83
+normal_vector = Vector2(1, 0)
+player_num = 1
 
 [node name="Polygon2D" type="Polygon2D" parent="Paddle" unique_id=835555475]
 polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
@@ -48,6 +50,8 @@ _up_key = 4194322
 _down_key = 4194320
 _up_direction = Vector2(0, 1)
 _down_direction = Vector2(0, -1)
+normal_vector = Vector2(-1, 0)
+player_num = 2
 
 [node name="Polygon2D" type="Polygon2D" parent="Paddle2" unique_id=913298344]
 polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
@@ -63,6 +67,8 @@ _up_key = 4194319
 _down_key = 4194321
 _up_direction = Vector2(-1, 0)
 _down_direction = Vector2(1, 0)
+normal_vector = Vector2(0, -1)
+player_num = 3
 
 [node name="Polygon2D" type="Polygon2D" parent="Paddle3" unique_id=850598469]
 polygon = PackedVector2Array(-4, -1, -4, 1, 4, 1, 4, -1)
@@ -78,6 +84,8 @@ _up_key = 68
 _down_key = 65
 _up_direction = Vector2(1, 0)
 _down_direction = Vector2(-1, 0)
+normal_vector = Vector2(0, 1)
+player_num = 4
 
 [node name="Polygon2D" type="Polygon2D" parent="Paddle4" unique_id=571498307]
 polygon = PackedVector2Array(-4, -1, -4, 1, 4, 1, 4, -1)

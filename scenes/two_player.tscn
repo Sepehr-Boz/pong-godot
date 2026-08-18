@@ -30,7 +30,8 @@ script = ExtResource("1_s7eja")
 _move_speed = 10.0
 _up_key = 87
 _down_key = 83
-_wall_at = 3
+normal_vector = Vector2(1, 0)
+player_num = 1
 
 [node name="Polygon2D" type="Polygon2D" parent="Paddle" unique_id=1840034878]
 polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
@@ -44,7 +45,8 @@ script = ExtResource("1_s7eja")
 _move_speed = 10.0
 _up_key = 4194320
 _down_key = 4194322
-_wall_at = 1
+normal_vector = Vector2(-1, 0)
+player_num = 2
 
 [node name="Polygon2D" type="Polygon2D" parent="Paddle2" unique_id=762680683]
 polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)

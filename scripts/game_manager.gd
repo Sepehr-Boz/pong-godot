@@ -20,7 +20,7 @@ func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
 	reset_game()
 	var rect: Rect2 = (get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * get_viewport().get_visible_rect())
-	extents = Vector2(rect.end.x, rect.end.y - 4)
+	extents = Vector2(rect.end.x, rect.end.y)
 	
 func set_game_mode(mode: GameMode) -> void:
 	# dont do anything if setting to the current mode
@@ -39,10 +39,10 @@ func set_game_mode(mode: GameMode) -> void:
 	# only update the extents after the NEW scene has been loaded in
 	if _game_mode == GameMode.TWO_PLAYER:
 		var rect: Rect2 = (get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * get_viewport().get_visible_rect())
-		extents = Vector2(rect.end.x, rect.end.y - 4)
+		extents = Vector2(rect.end.x, rect.end.y)
 	else:
 		var rect: Rect2 = (get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * get_viewport().get_visible_rect())
-		extents = Vector2(rect.end.y - 4, rect.end.y - 4)
+		extents = Vector2(rect.end.y, rect.end.y)
 
 func reset_game() -> void:
 	if _current_game_scene != null:
