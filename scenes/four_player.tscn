@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://btf51hq0no68k"]
 
 [ext_resource type="Script" uid="uid://c7taf3d5ww70r" path="res://scripts/circle2d.gd" id="1_4xyjt"]
+[ext_resource type="Script" uid="uid://d3dmu0uyy3l2o" path="res://scenes/game_initiator.gd" id="1_c7f54"]
 [ext_resource type="Script" uid="uid://cwx4q41h8dfv4" path="res://scripts/paddle.gd" id="1_wbu80"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wlwq"]
@@ -9,7 +10,9 @@ size = Vector2(2, 8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e5wnf"]
 size = Vector2(8, 2)
 
-[node name="Four Player" type="Node2D" unique_id=1670922904]
+[node name="Four Player" type="Node2D" unique_id=1670922904 node_paths=PackedStringArray("_paddles")]
+script = ExtResource("1_c7f54")
+_paddles = [NodePath("Paddle"), NodePath("Paddle2"), NodePath("Paddle3"), NodePath("Paddle4")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=262756731]
 zoom = Vector2(16.25, 16.25)
@@ -39,15 +42,11 @@ default_color = Color(1, 1, 1, 0.5019608)
 [node name="Circle2D" type="Node2D" parent="Line" unique_id=452905823]
 position = Vector2(0, -20)
 script = ExtResource("1_4xyjt")
-_radius = 0.25
-_fill_color = Color(1, 1, 1, 0.5019608)
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Circle2D2" type="Node2D" parent="Line" unique_id=2114204973]
 position = Vector2(0, 20)
 script = ExtResource("1_4xyjt")
-_radius = 0.25
-_fill_color = Color(1, 1, 1, 0.5019608)
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Line2" type="Node2D" parent="." unique_id=6661203]
@@ -61,15 +60,11 @@ default_color = Color(1, 1, 1, 0.5019608)
 [node name="Circle2D" type="Node2D" parent="Line2" unique_id=1896679670]
 position = Vector2(0, -20)
 script = ExtResource("1_4xyjt")
-_radius = 0.25
-_fill_color = Color(1, 1, 1, 0.5019608)
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Circle2D2" type="Node2D" parent="Line2" unique_id=911457210]
 position = Vector2(0, 20)
 script = ExtResource("1_4xyjt")
-_radius = 0.25
-_fill_color = Color(1, 1, 1, 0.5019608)
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Line3" type="Node2D" parent="." unique_id=752674728]
@@ -84,15 +79,11 @@ default_color = Color(1, 1, 1, 0.5019608)
 [node name="Circle2D" type="Node2D" parent="Line3" unique_id=292888372]
 position = Vector2(0, -20)
 script = ExtResource("1_4xyjt")
-_radius = 0.25
-_fill_color = Color(1, 1, 1, 0.5019608)
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Circle2D2" type="Node2D" parent="Line3" unique_id=80650446]
 position = Vector2(0, 20)
 script = ExtResource("1_4xyjt")
-_radius = 0.25
-_fill_color = Color(1, 1, 1, 0.5019608)
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Line4" type="Node2D" parent="." unique_id=1160952833]
@@ -107,15 +98,11 @@ default_color = Color(1, 1, 1, 0.5019608)
 [node name="Circle2D" type="Node2D" parent="Line4" unique_id=1747096647]
 position = Vector2(0, -20)
 script = ExtResource("1_4xyjt")
-_radius = 0.25
-_fill_color = Color(1, 1, 1, 0.5019608)
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Circle2D2" type="Node2D" parent="Line4" unique_id=1777975254]
 position = Vector2(0, 20)
 script = ExtResource("1_4xyjt")
-_radius = 0.25
-_fill_color = Color(1, 1, 1, 0.5019608)
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Paddle" type="Area2D" parent="." unique_id=441434758 groups=["Paddle"]]
@@ -132,6 +119,27 @@ polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle" unique_id=79027778]
 shape = SubResource("RectangleShape2D_0wlwq")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Paddle" unique_id=400194522]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -2.5
+offset_right = 195.0
+offset_bottom = 97.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.05, 0.05)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Press W/S
+to activate"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Paddle2" type="Area2D" parent="." unique_id=1698072976 groups=["Paddle"]]
 position = Vector2(16, 0)
@@ -150,6 +158,27 @@ polygon = PackedVector2Array(-1, -4, 1, -4, 1, 4, -1, 4)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle2" unique_id=144861360]
 shape = SubResource("RectangleShape2D_0wlwq")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Paddle2" unique_id=422035381]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -2.5
+offset_right = 195.0
+offset_bottom = 97.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.05, 0.05)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Press Up/Down
+to activate"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Paddle3" type="Area2D" parent="." unique_id=105193770 groups=["Paddle"]]
 position = Vector2(0, 16)
 script = ExtResource("1_wbu80")
@@ -167,6 +196,27 @@ polygon = PackedVector2Array(-4, -1, -4, 1, 4, 1, 4, -1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle3" unique_id=524724700]
 shape = SubResource("RectangleShape2D_e5wnf")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Paddle3" unique_id=1308724552]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -2.5
+offset_right = 195.0
+offset_bottom = 97.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.05, 0.05)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Press Left/Right
+to activate"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Paddle4" type="Area2D" parent="." unique_id=139628507 groups=["Paddle"]]
 position = Vector2(0, -16)
 script = ExtResource("1_wbu80")
@@ -183,3 +233,45 @@ polygon = PackedVector2Array(-4, -1, -4, 1, 4, 1, 4, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle4" unique_id=425824176]
 shape = SubResource("RectangleShape2D_e5wnf")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Paddle4" unique_id=534338952]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -2.5
+offset_right = 195.0
+offset_bottom = 97.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.05, 0.05)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Press A/D
+to activate"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main Label" type="RichTextLabel" parent="." unique_id=721111416]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -5.0
+offset_right = 190.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Press Space to Begin
+Press R to Reset Selection"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

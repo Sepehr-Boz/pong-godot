@@ -28,13 +28,10 @@ func set_game_mode(mode: GameMode) -> void:
 		return
 	_game_mode = mode
 	_current_game_scene.free()
-	current_ball.free()
+	if current_ball != null:
+		current_ball.free()
 	_current_game_scene = _two_player_scene.instantiate() if mode == GameMode.TWO_PLAYER else _four_player_scene.instantiate()
 	add_child(_current_game_scene)
-	current_ball = _ball_scene.instantiate()
-	add_child(current_ball)
-	current_ball.position = Vector2.ZERO
-	on_ball_spawned.emit(current_ball)
 	on_mode_set.emit(mode)
 	# only update the extents after the NEW scene has been loaded in
 	if _game_mode == GameMode.TWO_PLAYER:
@@ -51,8 +48,10 @@ func reset_game() -> void:
 		current_ball.free()
 	_current_game_scene = _two_player_scene.instantiate() if _game_mode == GameMode.TWO_PLAYER else _four_player_scene.instantiate()
 	add_child(_current_game_scene)
+	on_mode_set.emit(_game_mode)
+
+func spawn_ball() -> void:
 	current_ball = _ball_scene.instantiate()
 	add_child(current_ball)
 	current_ball.position = Vector2.ZERO
 	on_ball_spawned.emit(current_ball)
-	on_mode_set.emit(_game_mode)

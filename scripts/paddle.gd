@@ -34,6 +34,10 @@ func _handle_input() -> void:
 
 # AI
 func _determine_movement() -> void:
+	# if theres no ball yet then dont move
+	if not GameManager.current_ball:
+		_move = 0
+		return
 	# check if moving towards the paddle based on the balls movement direction and the wall
 	# the paddle is on
 	var ball_pos: Vector2 = GameManager.current_ball.position
