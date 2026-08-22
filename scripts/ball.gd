@@ -38,14 +38,28 @@ func _process(delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Paddle"):
 		area = area as Paddle
+		var normal: Vector2 = area.normal_vector
+		var dist_x: float = abs(area.position.x - position.x)
+		var dist_y: float = abs(area.position.y - position.y)
+		if area.normal_vector.x != 0: # the paddle is the left/right one
+			if dist_x < 1.5: # has hit the side so dont bounce back
+				normal = Vector2(0, 1) if position.y > area.position.y else Vector2(0, -1)
+			else:
+				_last_hit_by_player = area.player_num # only update last hit by player if sending it back towards
+				# the center/other players
+		elif area.normal_vector.y != 0: # the paddle is the top/bottom one
+			if dist_y < 1.5: # has hit the side so dont bounce back towards the center
+				normal = Vector2(1, 0) if position.x > area.position.x else Vector2(-1, 0)
+			else:
+				_last_hit_by_player = area.player_num # only update last hit by player if sending it back towards
+				# the center/other players
 		_move_direction = (
-			_move_direction.bounce(area.normal_vector)
+			_move_direction.bounce(normal)
 			+ Vector2(
 				_rng.randf_range(-_max_bounce_deviation, _max_bounce_deviation),
 				_rng.randf_range(-_max_bounce_deviation, _max_bounce_deviation))
 			).normalized()
 		_current_move_speed += _move_speed_increment
-		_last_hit_by_player = area.player_num
 		on_paddle_hit.emit(_last_hit_by_player)
 		# play a quick animation on hit where it scales up and back down
 		var color_tween: Tween = get_tree().create_tween()
@@ -68,7 +82,9 @@ func _check_edge_collision() -> void:
 		if position.x <= -GameManager.extents.x or position.x >= GameManager.extents.x:
 			on_score.emit(_last_hit_by_player)
 			position = Vector2.ZERO
-			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
+			_move_direction = Vector2(
+				_rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1),
+				_rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1)).normalized()
 			_current_move_speed = _initial_move_speed
 			_last_hit_by_player = 0
 			_spawn_particles.emitting = true
@@ -82,7 +98,9 @@ func _check_edge_collision() -> void:
 		if not Rect2(-GameManager.extents, GameManager.extents * 2).has_point(position):
 			on_score.emit(_last_hit_by_player)
 			position = Vector2.ZERO
-			_move_direction = Vector2(_rng.randf_range(-1.0, 1.0), _rng.randf_range(-1.0, 1.0))
+			_move_direction = Vector2(
+				_rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1),
+				_rng.randf_range(0.5, 1) * (-1 if _rng.randi_range(0, 1) == 0 else 1)).normalized()
 			_current_move_speed = _initial_move_speed
 			_last_hit_by_player = 0
 			_spawn_particles.emitting = true
