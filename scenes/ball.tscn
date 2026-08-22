@@ -12,7 +12,9 @@ colors = PackedColorArray(0.7607843, 0, 0, 1, 0.47843137, 0.8784314, 0.49411765,
 
 [node name="Ball" type="Area2D" unique_id=1877987044]
 script = ExtResource("1_7s4qf")
-_initial_move_speed = 7.5
+_initial_move_speed = 10.0
+_move_speed_increment = 0.5
+_max_bounce_deviation = 0.2
 _base_color = Color(0.18778887, 0.41822243, 1, 1)
 _bounce_color = Color(0.00306635, 0, 0.28841886, 1)
 _hit_destination_scale = Vector2(1.3, 1.3)
@@ -23,7 +25,6 @@ shape = SubResource("CircleShape2D_0wlwq")
 [node name="Circle2D" type="Node2D" parent="." unique_id=2056300707]
 script = ExtResource("2_cxlvu")
 radius = 1.0
-border_thickness = null
 metadata/_custom_type_script = "uid://c7taf3d5ww70r"
 
 [node name="Spawn Particles" type="CPUParticles2D" parent="." unique_id=458682307]
